@@ -541,7 +541,7 @@ namespace GK3D
                                                                       //Matrix.CreateRotationZ(MathHelper.ToRadians(-5)) *
                                                                       Matrix.CreateTranslation(
                                                                           new Vector3(-40f, 0f, 0f)));
-                    part.Effect.CurrentTechnique = part.Effect.Techniques["NotTextured"];
+                    part.Effect.CurrentTechnique = part.Effect.Techniques["Textured"];
                     part.Effect = phongEffectForModels;
                 }
                 mesh.Draw();
