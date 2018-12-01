@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -237,6 +238,12 @@ namespace GK3D
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
+            var perlins = new List<float>();
+            PerlinNoiseGenerator.Reseed();
+            perlins.Add(PerlinNoiseGenerator.Noise(4.0f,2.1f));
+            perlins.Add(PerlinNoiseGenerator.Noise(2.0f,1.1f));
+
             InitializePhongEffectForGrids();
             InitializePhongEffectForModel();
             DrawSphereWithEffect();

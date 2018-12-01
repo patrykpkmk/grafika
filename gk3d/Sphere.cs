@@ -22,6 +22,7 @@ namespace GK3D
             nindices = 90 * 90 * 6;
             CreateSphereVertices();
             CreateIndices();
+            AddPerlinNoise();
         }
 
         private void CreateSphereVertices()
@@ -42,6 +43,25 @@ namespace GK3D
                     vertices[x + y * 90] = new VertexPositionNormalColor(point, GetNormal(point), Color.Green);
                 }
             }
+        }
+
+        public void AddPerlinNoise()
+        {
+            List<VertexPositionNormalColor> modifiedVertices = new List<VertexPositionNormalColor>();
+            foreach (var vertex in vertices)
+            {
+                float x, y, xm, ym, zm;
+                x = vertex.Position.X + vertex.Normal.X;
+                y = vertex.Position.Y + vertex.Normal.Y;
+                var perlinNoiseValue = PerlinNoiseGenerator.Noise(x, y);
+                xm = vertex.Position.X + vertex.Normal.X * perlinNoiseValue;
+                ym = vertex.Position.Y + vertex.Normal.Y * perlinNoiseValue;
+                zm = vertex.Position.Z + vertex.Normal.Z * perlinNoiseValue;
+                var modifiedPoint = new Vector3(xm, ym, zm);
+                var modifiedVertex = new VertexPositionNormalColor(modifiedPoint, vertex.Normal, vertex.Color);
+                modifiedVertices.Add(modifiedVertex);
+            }
+            vertices = modifiedVertices.ToArray();
         }
 
         private Vector3 GetNormal(Vector3 vertex)
