@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Gk3drepo_shaders/gk3d/GK3D/Content/apple.fbx</File>
+    <File>C:/Gk3drepo_shaders/gk3d/GK3D/Content/Phong.fx</File>
+    <File>C:/Gk3drepo_shaders/gk3d/GK3D/Content/PhongModel.fx</File>
+    <File>C:/Gk3drepo_shaders/gk3d/GK3D/Content/Revolver.fbx</File>
+    <File>C:/Gk3drepo_shaders/gk3d/GK3D/Content/rocket.fbx</File>
+    <File>C:/Gk3drepo_shaders/gk3d/GK3D/Content/SpherePhongSpotlight.fx</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
