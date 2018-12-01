@@ -1,30 +1,99 @@
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\apple.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\dog.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\Phong.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\PhongModel.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\Revolver.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\robot.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\rocket.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\spaceship.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\Content\SpherePhongSpotlight.xnb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\GK3D.exe
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\GK3D.pdb
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.dll
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.xml
-C:\Gk3drepo_shaders\gk3d\GK3D\obj\x86\Debug\GK3D.csprojResolveAssemblyReference.cache
-C:\Gk3drepo_shaders\gk3d\GK3D\obj\x86\Debug\GK3D.exe
-C:\Gk3drepo_shaders\gk3d\GK3D\obj\x86\Debug\GK3D.pdb
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\GK3D.exe
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\GK3D.pdb
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\obj\x86\Debug\GK3D.csprojResolveAssemblyReference.cache
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\obj\x86\Debug\GK3D.exe
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\obj\x86\Debug\GK3D.pdb
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\Content\Revolver.xnb
+C:\Users\Patryk M\Documents\Visual Studio 2015\Projects\GK3D\GK3D\bin\Windows\x86\Debug\Content\robot.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\apple.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\chess.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\cube.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\dog.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\EmptySpace.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\PhongGrid.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\PhongModel.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\ReflectionEnvMap.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\Revolver.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\robot.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\rocket.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\Skybox.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\spaceship.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\Sunset.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\UntexturedSphere.xnb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\GK3D.exe
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\GK3D.pdb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Gk3drepo\gk3d\GK3D\obj\x86\Debug\GK3D.csprojResolveAssemblyReference.cache
+C:\Gk3drepo\gk3d\GK3D\obj\x86\Debug\GK3D.exe
+C:\Gk3drepo\gk3d\GK3D\obj\x86\Debug\GK3D.pdb
+C:\Gk3drepo\gk3d\GK3D\bin\Windows\x86\Debug\Content\Font.xnb
+C:\grafika\GK3D\obj\x86\Debug\GK3D.exe
+C:\grafika\GK3D\obj\x86\Debug\GK3D.pdb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\dog.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Phong.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\robot.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\spaceship.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\SpherePhongSpotlight.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\apple.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\chess.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\cube.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\EmptySpace.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Font.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\PhongGrid.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\PhongModel.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\ReflectionEnvMap.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Revolver.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\rocket.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Skybox.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Sunset.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\UntexturedSphere.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\GK3D.exe
+C:\grafika\GK3D\bin\Windows\x86\Debug\GK3D.pdb
+C:\grafika\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\grafika\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\grafika\GK3D\obj\x86\Debug\GK3D.csprojResolveAssemblyReference.cache

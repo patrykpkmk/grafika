@@ -48,6 +48,7 @@
     <Compile Include="Lights.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skybox.cs" />
     <Compile Include="Sphere.cs" />
     <Compile Include="VertexPositionNormalColor.cs" />
   </ItemGroup>
@@ -63,6 +64,7 @@
     <Content Include="Content\Shaders\PhongModel.fx" />
     <Content Include="Content\Shaders\SpherePhongSpotlight.fx" />
     <Content Include="Icon.ico" />
+    <Content Include="Content\Textures\chess.jpg" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

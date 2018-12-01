@@ -13,6 +13,8 @@ namespace GK3D
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
+        BasicEffect basicEffect;
 
         private Camera camera;
         private Matrix worldMatrix;
@@ -25,7 +27,6 @@ namespace GK3D
         int planetoidSphereRadius;
 
         HalfCylinder halfCylinder;
-        private Model robotModel;
         private Model rocketModel;
         private Model revolverModel;
 
@@ -39,16 +40,30 @@ namespace GK3D
         private Vector3 appleStelliteTwoTransaltion;
 
 
-        private Effect phongEffect;
-        private Effect phongEffectForSphere;
+        private Effect phongEffectForGrids;
         private Effect phongEffectForModels;
         private Vector3 viewVector;
         private Matrix[] appleModelTransforms;
         private Matrix[] robotModelTransforms;
         private Matrix[] rocketModelTransforms;
         private Matrix[] revolverModelTransforms;
+        private Matrix[] untexturedSphereForReflectionModelTransforms;
 
         private Lights lights;
+
+        //Textures
+        private Texture2D textureChess;
+        Skybox skybox;
+
+        //EnvMapping reflection
+        private Model untexturedSphereForEnvMapReflectionModel;
+        private Effect effectForEnvMapReflection;
+        private TextureCube textureCubeUsedForSkyBox;
+
+        //Vector3 cameraPosition;
+        float angle = 0;
+        float distance = 20;
+
 
         public Game1()
         {
@@ -72,7 +87,7 @@ namespace GK3D
             camera = new Camera();
 
             viewMatrix = Matrix.CreateLookAt(
-                camera.CameraPosition,  camera.CameraTarget, camera.CameraUpVector);
+                camera.CameraPosition, camera.CameraTarget, camera.CameraUpVector);
 
 
             //WORLD MATRIX
@@ -105,7 +120,7 @@ namespace GK3D
             planetoidSphereRadius = 15;
             planetoidSphere = new Sphere(planetoidSphereRadius);
 
-            halfSphere = new HalfSphere(planetoidSphereRadius, Color.Black);
+            halfSphere = new HalfSphere(planetoidSphereRadius, Color.LightCoral);
             halfSphere.RotateZ(180);
             halfSphere.Translate(new Vector3(0, -75, 0));
             halfSphere.Scale(0.2f);
@@ -114,10 +129,11 @@ namespace GK3D
             halfSphereTwo.Translate(new Vector3(0, -104, 0));
             halfSphereTwo.Scale(0.2f);
 
-            halfCylinder = new HalfCylinder(4, 8, Color.Blue);
+            halfCylinder = new HalfCylinder(4, 8, Color.Turquoise);
             halfCylinder.Scale(0.5f);
-            halfCylinder.RotateY(180);
-            halfCylinder.Translate(new Vector3(0, -24.1f, 0));
+            halfCylinder.RotateY(0);
+            halfCylinder.RotateX(90);
+            halfCylinder.Translate(new Vector3(0, -22.8f, 0));
 
             appleStelliteOneTransaltion = new Vector3(25, 25, 0);
             appleStelliteTwoTransaltion = new Vector3(-25, 0, 0);
@@ -133,16 +149,19 @@ namespace GK3D
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteFont = Content.Load<SpriteFont>("Font");
+
+            basicEffect = new BasicEffect(GraphicsDevice)
+            {
+                TextureEnabled = true,
+                VertexColorEnabled = true,
+            };
             // TODO: use this.Content to load your game content here
 
 
             appleModel = Content.Load<Model>("apple");
             appleModelTransforms = new Matrix[appleModel.Bones.Count];
             appleModel.CopyAbsoluteBoneTransformsTo(appleModelTransforms);
-
-            robotModel = Content.Load<Model>("robot");
-            robotModelTransforms = new Matrix[robotModel.Bones.Count];
-            robotModel.CopyAbsoluteBoneTransformsTo(robotModelTransforms);
 
             rocketModel = Content.Load<Model>("rocket");
             rocketModelTransforms = new Matrix[rocketModel.Bones.Count];
@@ -152,9 +171,23 @@ namespace GK3D
             revolverModelTransforms = new Matrix[revolverModel.Bones.Count];
             revolverModel.CopyAbsoluteBoneTransformsTo(revolverModelTransforms);
 
-            phongEffect = Content.Load<Effect>("Phong");
-            phongEffectForSphere = Content.Load<Effect>("SpherePhongSpotlight");
+
+            phongEffectForGrids = Content.Load<Effect>("PhongGrid");
             phongEffectForModels = Content.Load<Effect>("PhongModel");
+
+            //Texturing and skybox
+            textureChess = Content.Load<Texture2D>("chess");
+            string skyboxTextureName = "Sunset";
+            skybox = new Skybox(skyboxTextureName, Content);
+
+            //EnvMap Reflection 
+            textureCubeUsedForSkyBox = Content.Load<TextureCube>(skyboxTextureName);
+            untexturedSphereForEnvMapReflectionModel = Content.Load<Model>("UntexturedSphere");
+            untexturedSphereForReflectionModelTransforms =
+                new Matrix[untexturedSphereForEnvMapReflectionModel.Bones.Count];
+            untexturedSphereForEnvMapReflectionModel.CopyAbsoluteBoneTransformsTo(
+                untexturedSphereForReflectionModelTransforms);
+            effectForEnvMapReflection = Content.Load<Effect>("ReflectionEnvMap");
         }
 
         /// <summary>
@@ -180,11 +213,21 @@ namespace GK3D
             if (frameTime.TotalMilliseconds == 0) return;
             var keyboardState = Keyboard.GetState();
 
+
             camera.Update(keyboardState, frameTime);
             viewMatrix = Matrix.CreateLookAt(camera.CameraPosition, camera.CameraPosition - camera.CameraForward,
                 camera.CameraUpVector);
 
             lastFrameTimeUpdate = DateTime.Now;
+            //MSAA
+            if (keyboardState.IsKeyDown(Keys.M))
+            {
+                //graphics.GraphicsProfile = GraphicsProfile.HiDef;
+                graphics.PreferMultiSampling = !graphics.PreferMultiSampling;
+
+                graphics.ApplyChanges();
+            }
+
             base.Update(gameTime);
         }
 
@@ -194,8 +237,7 @@ namespace GK3D
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            InitializePhongEffectForGrid();
-            InitializePhongEffectForSphere();
+            InitializePhongEffectForGrids();
             InitializePhongEffectForModel();
             DrawSphereWithEffect();
             DrawHalfSphereWithEffect();
@@ -207,97 +249,128 @@ namespace GK3D
             DrawRocket();
             DrawRevolver();
 
+            DrawSphereModelWithEnvMapReflectionEffect(untexturedSphereForEnvMapReflectionModel, worldMatrix, viewMatrix,
+                projectionMatrix);
+            DrawSkyBox();
+
+            DrawBillboards();
+            DrawBillboards2();
+
+
             base.Draw(gameTime);
         }
 
-        private void InitializePhongEffectForGrid()
+        private void DrawBillboards()
         {
-            phongEffect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            phongEffect.GraphicsDevice.Clear(Color.CornflowerBlue);
-            phongEffect.GraphicsDevice.RasterizerState = new RasterizerState() {FillMode = FillMode.Solid };
-            viewVector = camera.CameraTarget - camera.CameraPosition;
-            viewVector.Normalize();
+            Vector3 textPosition = new Vector3(0, 0, -60);
 
-            phongEffect.Parameters["World"].SetValue(worldMatrix);
-            phongEffect.Parameters["View"].SetValue(viewMatrix);
-            phongEffect.Parameters["Projection"].SetValue(projectionMatrix);
+            basicEffect.World = Matrix.CreateConstrainedBillboard(textPosition, textPosition + camera.CameraForward,
+                Vector3.Down, null, null);
+            basicEffect.View = viewMatrix;
+            basicEffect.Projection = projectionMatrix;
 
-            phongEffect.Parameters["World"].SetValue(worldMatrix);
-            phongEffect.Parameters["View"].SetValue(viewMatrix);
-            phongEffect.Parameters["Projection"].SetValue(projectionMatrix);
+            const string message = "GRAFIKA 3D";
+            Vector2 textOrigin = spriteFont.MeasureString(message) / 2;
+            const float textSize = 0.25f;
 
-            phongEffect.Parameters["AmbientColor"].SetValue(lights.DirectionalLightAmbientColor);
-            phongEffect.Parameters["AmbientIntensity"].SetValue(0.02f);
+            spriteBatch.Begin(0, null, null, DepthStencilState.DepthRead, RasterizerState.CullNone, basicEffect);
 
-            Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(worldMatrix));
-            phongEffect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
+            spriteBatch.DrawString(spriteFont, message, Vector2.Zero, Color.White, 0, textOrigin, textSize, 0, 0);
+            spriteBatch.End();
 
-            phongEffect.Parameters["DirectionalLightDirection"].SetValue(lights.DirectionalLightDirection);
-            phongEffect.Parameters["DiffuseColor"].SetValue(lights.DirectionalLightDiffuseColor);
-            phongEffect.Parameters["DiffuseIntensity"].SetValue(0.75f);
-
-            phongEffect.Parameters["Shininess"].SetValue(100f);
-            phongEffect.Parameters["SpecularColor"].SetValue(lights.DirectionalLightSpecularColor);
-            phongEffect.Parameters["SpecularIntensity"].SetValue(0.5f);
-
-            phongEffect.Parameters["ViewVector"].SetValue(viewVector);
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
 
-        private void InitializePhongEffectForSphere()
+
+        private void DrawBillboards2()
         {
-            phongEffectForSphere.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            phongEffectForSphere.GraphicsDevice.Clear(Color.CornflowerBlue);
-            phongEffectForSphere.GraphicsDevice.RasterizerState = new RasterizerState() { FillMode = FillMode.Solid };
+            Vector3 textPosition = new Vector3(60, 0, 0);
+
+            basicEffect.World = Matrix.CreateConstrainedBillboard(textPosition, textPosition + camera.CameraForward,
+                Vector3.Down, null, null);
+            basicEffect.View = viewMatrix;
+            basicEffect.Projection = projectionMatrix;
+
+            const string message = "2018";
+            Vector2 textOrigin = spriteFont.MeasureString(message) / 2;
+            const float textSize = 0.5f;
+
+            spriteBatch.Begin(0, null, null, DepthStencilState.DepthRead, RasterizerState.CullNone, basicEffect);
+
+            spriteBatch.DrawString(spriteFont, message, Vector2.Zero, Color.Black, 0, textOrigin, textSize, 0, 0);
+            spriteBatch.End();
+
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        }
+
+
+        private void DrawSkyBox()
+        {
+            RasterizerState pom = spriteBatch.GraphicsDevice.RasterizerState;
+            RasterizerState r = new RasterizerState();
+            r.CullMode = CullMode.CullClockwiseFace;
+            spriteBatch.GraphicsDevice.RasterizerState = r;
+            skybox.Draw(viewMatrix, projectionMatrix, camera.CameraPosition);
+            spriteBatch.GraphicsDevice.RasterizerState = pom;
+        }
+
+        private void InitializePhongEffectForGrids()
+        {
+            phongEffectForGrids.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            phongEffectForGrids.GraphicsDevice.Clear(Color.CornflowerBlue);
+            phongEffectForGrids.GraphicsDevice.RasterizerState = new RasterizerState() {FillMode = FillMode.Solid};
             viewVector = camera.CameraTarget - camera.CameraPosition;
             viewVector.Normalize();
 
-            phongEffectForSphere.Parameters["World"].SetValue(worldMatrix);
-            phongEffectForSphere.Parameters["View"].SetValue(viewMatrix);
-            phongEffectForSphere.Parameters["Projection"].SetValue(projectionMatrix);
+            phongEffectForGrids.Parameters["World"].SetValue(worldMatrix);
+            phongEffectForGrids.Parameters["View"].SetValue(viewMatrix);
+            phongEffectForGrids.Parameters["Projection"].SetValue(projectionMatrix);
 
 
-            phongEffectForSphere.Parameters["AmbientColor"].SetValue(lights.DirectionalLightAmbientColor);
-            phongEffectForSphere.Parameters["AmbientIntensity"].SetValue(0.02f);
+            phongEffectForGrids.Parameters["AmbientColor"].SetValue(lights.DirectionalLightAmbientColor);
+            phongEffectForGrids.Parameters["AmbientIntensity"].SetValue(0.02f);
 
             Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(worldMatrix));
-            phongEffectForSphere.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
+            phongEffectForGrids.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
 
-            phongEffectForSphere.Parameters["DirectionalLightDirection"].SetValue(lights.DirectionalLightDirection);
-            phongEffectForSphere.Parameters["DiffuseColor"].SetValue(lights.DirectionalLightDiffuseColor);
-            phongEffectForSphere.Parameters["DiffuseIntensity"].SetValue(0.75f);
+            phongEffectForGrids.Parameters["DirectionalLightDirection"].SetValue(lights.DirectionalLightDirection);
+            phongEffectForGrids.Parameters["DiffuseColor"].SetValue(lights.DirectionalLightDiffuseColor);
+            phongEffectForGrids.Parameters["DiffuseIntensity"].SetValue(0.9f);
 
-            phongEffectForSphere.Parameters["Shininess"].SetValue(100f);
-            phongEffectForSphere.Parameters["SpecularColor"].SetValue(lights.DirectionalLightSpecularColor);
-            phongEffectForSphere.Parameters["SpecularIntensity"].SetValue(0.5f);
+            phongEffectForGrids.Parameters["Shininess"].SetValue(100f);
+            phongEffectForGrids.Parameters["SpecularColor"].SetValue(lights.DirectionalLightSpecularColor);
+            phongEffectForGrids.Parameters["SpecularIntensity"].SetValue(0.9f);
 
-            phongEffectForSphere.Parameters["ViewVector"].SetValue(viewVector);
-
-
-            phongEffectForSphere.Parameters["SpotlightOneLightPosition"].SetValue(lights.SpotlightOneLightPosition);
-            phongEffectForSphere.Parameters["SpotlightOneSpotDirection"].SetValue(lights.SpotlightOneSpotDirection);
-            phongEffectForSphere.Parameters["SpotlightOneLightRadius"].SetValue(50f);
-            phongEffectForSphere.Parameters["SpotlightOneSpotDecayExponent"].SetValue(5f);
-            phongEffectForSphere.Parameters["SpotlightOneSpotLightAngleCosine"].SetValue((float)Math.Cos(MathHelper.ToRadians(10)));
-            phongEffectForSphere.Parameters["SpotlightOneDiffuseColor"].SetValue(lights.SpotlightOneDiffuseColor);
-            phongEffectForSphere.Parameters["SpotlightOneSpecularColor"].SetValue(lights.SpotlightOneSpecularColor);
+            phongEffectForGrids.Parameters["ViewVector"].SetValue(viewVector);
 
 
-            phongEffectForSphere.Parameters["SpotlightTwoLightPosition"].SetValue(lights.SpotlightTwoLightPosition);
-            phongEffectForSphere.Parameters["SpotlightTwoSpotDirection"].SetValue(lights.SpotlightTwoSpotDirection);
-            phongEffectForSphere.Parameters["SpotlightTwoLightRadius"].SetValue(50f);
-            phongEffectForSphere.Parameters["SpotlightTwoSpotDecayExponent"].SetValue(5f);
-            phongEffectForSphere.Parameters["SpotlightTwoSpotLightAngleCosine"].SetValue((float)Math.Cos(MathHelper.ToRadians(20)));
-            phongEffectForSphere.Parameters["SpotlightTwoDiffuseColor"].SetValue(lights.SpotlightTwoDiffuseColor);
-            phongEffectForSphere.Parameters["SpotlightTwoSpecularColor"].SetValue(lights.SpotlightTwoSpecularColor);
+            phongEffectForGrids.Parameters["SpotlightOneLightPosition"].SetValue(lights.SpotlightOneLightPosition);
+            phongEffectForGrids.Parameters["SpotlightOneSpotDirection"].SetValue(lights.SpotlightOneSpotDirection);
+            phongEffectForGrids.Parameters["SpotlightOneLightRadius"].SetValue(50f);
+            phongEffectForGrids.Parameters["SpotlightOneSpotDecayExponent"].SetValue(5f);
+            phongEffectForGrids.Parameters["SpotlightOneSpotLightAngleCosine"].SetValue(
+                (float) Math.Cos(MathHelper.ToRadians(10)));
+            phongEffectForGrids.Parameters["SpotlightOneDiffuseColor"].SetValue(lights.SpotlightOneDiffuseColor);
+            phongEffectForGrids.Parameters["SpotlightOneSpecularColor"].SetValue(lights.SpotlightOneSpecularColor);
 
 
+            phongEffectForGrids.Parameters["SpotlightTwoLightPosition"].SetValue(lights.SpotlightTwoLightPosition);
+            phongEffectForGrids.Parameters["SpotlightTwoSpotDirection"].SetValue(lights.SpotlightTwoSpotDirection);
+            phongEffectForGrids.Parameters["SpotlightTwoLightRadius"].SetValue(50f);
+            phongEffectForGrids.Parameters["SpotlightTwoSpotDecayExponent"].SetValue(5f);
+            phongEffectForGrids.Parameters["SpotlightTwoSpotLightAngleCosine"].SetValue(
+                (float) Math.Cos(MathHelper.ToRadians(20)));
+            phongEffectForGrids.Parameters["SpotlightTwoDiffuseColor"].SetValue(lights.SpotlightTwoDiffuseColor);
+            phongEffectForGrids.Parameters["SpotlightTwoSpecularColor"].SetValue(lights.SpotlightTwoSpecularColor);
         }
 
         private void InitializePhongEffectForModel()
         {
             phongEffectForModels.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             phongEffectForModels.GraphicsDevice.Clear(Color.CornflowerBlue);
-            phongEffectForModels.GraphicsDevice.RasterizerState = new RasterizerState() {FillMode = FillMode.Solid };
+            phongEffectForModels.GraphicsDevice.RasterizerState = new RasterizerState() {FillMode = FillMode.Solid};
             viewVector = camera.CameraTarget - camera.CameraPosition;
             viewVector.Normalize();
 
@@ -313,22 +386,44 @@ namespace GK3D
 
             phongEffectForModels.Parameters["DirectionalLightDirection"].SetValue(lights.DirectionalLightDirection);
             phongEffectForModels.Parameters["DiffuseColor"].SetValue(lights.DirectionalLightDiffuseColor);
-            phongEffectForModels.Parameters["DiffuseIntensity"].SetValue(0.75f);
+            phongEffectForModels.Parameters["DiffuseIntensity"].SetValue(0.9f);
 
             phongEffectForModels.Parameters["Shininess"].SetValue(100f);
             phongEffectForModels.Parameters["SpecularColor"].SetValue(lights.DirectionalLightSpecularColor);
-            phongEffectForModels.Parameters["SpecularIntensity"].SetValue(0.5f);
+            phongEffectForModels.Parameters["SpecularIntensity"].SetValue(0.9f);
 
             phongEffectForModels.Parameters["ViewVector"].SetValue(viewVector);
+
+
+            phongEffectForModels.Parameters["SpotlightOneLightPosition"].SetValue(lights.SpotlightOneLightPosition);
+            phongEffectForModels.Parameters["SpotlightOneSpotDirection"].SetValue(lights.SpotlightOneSpotDirection);
+            phongEffectForModels.Parameters["SpotlightOneLightRadius"].SetValue(50f);
+            phongEffectForModels.Parameters["SpotlightOneSpotDecayExponent"].SetValue(5f);
+            phongEffectForModels.Parameters["SpotlightOneSpotLightAngleCosine"].SetValue(
+                (float) Math.Cos(MathHelper.ToRadians(10)));
+            phongEffectForModels.Parameters["SpotlightOneDiffuseColor"].SetValue(lights.SpotlightOneDiffuseColor);
+            phongEffectForModels.Parameters["SpotlightOneSpecularColor"].SetValue(lights.SpotlightOneSpecularColor);
+
+
+            phongEffectForModels.Parameters["SpotlightTwoLightPosition"].SetValue(lights.SpotlightTwoLightPosition);
+            phongEffectForModels.Parameters["SpotlightTwoSpotDirection"].SetValue(lights.SpotlightTwoSpotDirection);
+            phongEffectForModels.Parameters["SpotlightTwoLightRadius"].SetValue(50f);
+            phongEffectForModels.Parameters["SpotlightTwoSpotDecayExponent"].SetValue(5f);
+            phongEffectForModels.Parameters["SpotlightTwoSpotLightAngleCosine"].SetValue(
+                (float) Math.Cos(MathHelper.ToRadians(20)));
+            phongEffectForModels.Parameters["SpotlightTwoDiffuseColor"].SetValue(lights.SpotlightTwoDiffuseColor);
+            phongEffectForModels.Parameters["SpotlightTwoSpecularColor"].SetValue(lights.SpotlightTwoSpecularColor);
+
+            phongEffectForModels.Parameters["ModelTexture"].SetValue(textureChess);
         }
 
 
         private void DrawSphereWithEffect()
         {
-            foreach (EffectPass pass in phongEffectForSphere.CurrentTechnique.Passes)
+            foreach (EffectPass pass in phongEffectForGrids.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                phongEffectForSphere.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
+                phongEffectForGrids.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
                     PrimitiveType.TriangleList,
                     planetoidSphere.vertices, 0,
                     planetoidSphere.vertices.Length, planetoidSphere.indices, 0, planetoidSphere.indices.Length / 3);
@@ -337,10 +432,10 @@ namespace GK3D
 
         private void DrawHalfSphereWithEffect()
         {
-            foreach (EffectPass pass in phongEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in phongEffectForGrids.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                phongEffect.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
+                phongEffectForGrids.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
                     PrimitiveType.TriangleList,
                     halfSphere.vertices, 0,
                     halfSphere.vertices.Length, halfSphere.indices, 0, halfSphere.indices.Length / 3);
@@ -349,10 +444,10 @@ namespace GK3D
 
         private void DrawHalfSphereTwoWithEffect()
         {
-            foreach (EffectPass pass in phongEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in phongEffectForGrids.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                phongEffect.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
+                phongEffectForGrids.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
                     PrimitiveType.TriangleList,
                     halfSphereTwo.vertices, 0,
                     halfSphereTwo.vertices.Length, halfSphereTwo.indices, 0, halfSphereTwo.indices.Length / 3);
@@ -361,12 +456,12 @@ namespace GK3D
 
         private void DrawHalfCylinderWithEffect()
         {
-            foreach (EffectPass pass in phongEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in phongEffectForGrids.CurrentTechnique.Passes)
             {
                 pass.Apply();
 
 
-                phongEffect.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
+                phongEffectForGrids.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalColor>(
                     PrimitiveType.TriangleList,
                     halfCylinder.vertices.ToArray(), 0,
                     halfCylinder.vertices.Count, halfCylinder.indices.ToArray(), 0, halfCylinder.indices.Count / 3);
@@ -383,6 +478,7 @@ namespace GK3D
                     phongEffectForModels.Parameters["World"].SetValue(appleModelTransforms[mesh.ParentBone.Index] *
                                                                       Matrix.CreateTranslation(
                                                                           appleStelliteOneTransaltion) * worldMatrix);
+                    part.Effect.CurrentTechnique = part.Effect.Techniques["Textured"];
                     part.Effect = phongEffectForModels;
                 }
                 mesh.Draw();
@@ -399,7 +495,7 @@ namespace GK3D
                     phongEffectForModels.Parameters["World"].SetValue(appleModelTransforms[mesh.ParentBone.Index] *
                                                                       Matrix.CreateTranslation(
                                                                           appleStelliteTwoTransaltion) * worldMatrix);
-
+                    part.Effect.CurrentTechnique = part.Effect.Techniques["Textured"];
                     part.Effect = phongEffectForModels;
                 }
                 mesh.Draw();
@@ -412,12 +508,13 @@ namespace GK3D
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    phongEffectForModels.Parameters["ModelColor"].SetValue(Color.Brown.ToVector4());
+                    phongEffectForModels.Parameters["ModelColor"].SetValue(Color.Yellow.ToVector4());
                     phongEffectForModels.Parameters["World"].SetValue(rocketModelTransforms[mesh.ParentBone.Index] *
                                                                       Matrix.CreateRotationX(MathHelper.ToRadians(-45)) *
                                                                       Matrix.CreateScale(new Vector3(0.02f, 0.02f, 0.02f)) *
                                                                       Matrix.CreateTranslation(
                                                                           new Vector3(0f, 25f, -25f)));
+                    part.Effect.CurrentTechnique = part.Effect.Techniques["NotTextured"];
                     part.Effect = phongEffectForModels;
                 }
                 mesh.Draw();
@@ -437,7 +534,30 @@ namespace GK3D
                                                                       //Matrix.CreateRotationZ(MathHelper.ToRadians(-5)) *
                                                                       Matrix.CreateTranslation(
                                                                           new Vector3(-40f, 0f, 0f)));
+                    part.Effect.CurrentTechnique = part.Effect.Techniques["NotTextured"];
                     part.Effect = phongEffectForModels;
+                }
+                mesh.Draw();
+            }
+        }
+
+        private void DrawSphereModelWithEnvMapReflectionEffect(Model model, Matrix world, Matrix view, Matrix projection)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    part.Effect = effectForEnvMapReflection;
+                    effectForEnvMapReflection.Parameters["World"].SetValue(
+                        untexturedSphereForReflectionModelTransforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(new Vector3(3f, 3f, 3f)) * Matrix.CreateTranslation(
+                            new Vector3(-40f, 20f, 0f)));
+                    effectForEnvMapReflection.Parameters["View"].SetValue(view);
+                    effectForEnvMapReflection.Parameters["Projection"].SetValue(projection);
+                    effectForEnvMapReflection.Parameters["SkyboxTexture"].SetValue(textureCubeUsedForSkyBox);
+                    effectForEnvMapReflection.Parameters["CameraPosition"].SetValue(camera.CameraPosition);
+                    effectForEnvMapReflection.Parameters["WorldInverseTranspose"].SetValue(
+                        Matrix.Transpose(Matrix.Invert(world * mesh.ParentBone.Transform)));
                 }
                 mesh.Draw();
             }

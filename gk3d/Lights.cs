@@ -37,12 +37,12 @@ namespace GK3D
             DirectionalLightDiffuseColor = Color.White.ToVector4();
             DirectionalLightSpecularColor = Color.White.ToVector4();
 
-            SpotlightOneLightPosition = new Vector3(0f, 25f, -25f);
+            SpotlightOneLightPosition = new Vector3(0f, 50f, -50f);
             SpotlightOneSpotDirection = new Vector3(0f, -1f, 2f);
             SpotlightOneDiffuseColor = Color.Yellow.ToVector4();
             SpotlightOneSpecularColor = Color.Yellow.ToVector4();
 
-            SpotlightTwoLightPosition = new Vector3(-20f, 0f, 0);
+            SpotlightTwoLightPosition = new Vector3(-35f, 0f, 0);
             SpotlightTwoSpotDirection = new Vector3(1f, 0f, 0);
             SpotlightTwoDiffuseColor = Color.DarkRed.ToVector4();
             SpotlightTwoSpecularColor = Color.DarkRed.ToVector4();
@@ -66,8 +66,8 @@ namespace GK3D
             }
             else if(i % 3 == 1)
             {
-                SpotlightOneDiffuseColor = Color.DarkRed.ToVector4();
-                SpotlightOneSpecularColor = Color.DarkRed.ToVector4();
+                SpotlightOneDiffuseColor = Color.Blue.ToVector4();
+                SpotlightOneSpecularColor = Color.Blue.ToVector4();
             }
             else
             {
