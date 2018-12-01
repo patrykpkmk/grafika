@@ -61,9 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Shaders\Phong.fx" />
+    <Content Include="Content\Shaders\PhongGrid.fx" />
     <Content Include="Content\Shaders\PhongModel.fx" />
-    <Content Include="Content\Shaders\SpherePhongSpotlight.fx" />
+    <Content Include="Content\Shaders\ReflectionEnvMap.fx" />
+    <Content Include="Content\Shaders\Skybox.fx" />
     <Content Include="Icon.ico" />
     <Content Include="Content\Textures\chess.jpg" />
   </ItemGroup>
@@ -71,8 +72,10 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="Content\Models\apple.fbx" />
+    <None Include="Content\Models\cube.fbx" />
     <None Include="Content\Models\Revolver.fbx" />
     <None Include="Content\Models\rocket.fbx" />
+    <None Include="Content\Models\UntexturedSphere.fbx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

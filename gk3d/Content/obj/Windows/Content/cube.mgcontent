@@ -3,7 +3,7 @@
   <SourceFile>C:/grafika/GK3D/Content/cube.fbx</SourceFile>
   <SourceTime>2018-11-25T17:30:58.9231684+01:00</SourceTime>
   <DestFile>C:/grafika/GK3D/Content/bin/Windows/Content/cube.xnb</DestFile>
-  <DestTime>2018-12-01T08:29:25.3474209+01:00</DestTime>
+  <DestTime>2018-12-01T10:03:45.3146573+01:00</DestTime>
   <Importer>FbxImporter</Importer>
   <ImporterTime>2018-09-23T23:55:52+02:00</ImporterTime>
   <Processor>ModelProcessor</Processor>

@@ -67,7 +67,6 @@ C:\grafika\GK3D\bin\Windows\x86\Debug\Content\spaceship.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\SpherePhongSpotlight.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\apple.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\chess.xnb
-C:\grafika\GK3D\bin\Windows\x86\Debug\Content\cube.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\EmptySpace.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Font.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\PhongGrid.xnb
@@ -77,7 +76,6 @@ C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Revolver.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\rocket.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Skybox.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\Sunset.xnb
-C:\grafika\GK3D\bin\Windows\x86\Debug\Content\UntexturedSphere.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\GK3D.exe
 C:\grafika\GK3D\bin\Windows\x86\Debug\GK3D.pdb
 C:\grafika\GK3D\bin\Windows\x86\Debug\MonoGame.Framework.dll
@@ -96,4 +94,5 @@ C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.DXGI.xml
 C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
 C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.xml
-C:\grafika\GK3D\obj\x86\Debug\GK3D.csprojResolveAssemblyReference.cache
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\cube.xnb
+C:\grafika\GK3D\bin\Windows\x86\Debug\Content\UntexturedSphere.xnb
