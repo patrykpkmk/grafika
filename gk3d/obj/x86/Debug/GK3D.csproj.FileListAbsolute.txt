@@ -96,3 +96,4 @@ C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\grafika\GK3D\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\cube.xnb
 C:\grafika\GK3D\bin\Windows\x86\Debug\Content\UntexturedSphere.xnb
+C:\grafika\GK3D\obj\x86\Debug\GK3D.csprojResolveAssemblyReference.cache
